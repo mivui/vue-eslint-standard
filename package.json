@@ -1,0 +1,64 @@
+{
+  "name": "vue-eslint-standard",
+  "version": "9.0.2",
+  "description": "quickly start eslint in vue",
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./*": "./*"
+  },
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  },
+  "scripts": {
+    "eslint": "eslint --fix dist/**/*.{ts,js}",
+    "build": "rollup -c rollup.config.js",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "eslint-plugin-vue": "^9.27.0",
+    "typescript-eslint-standard": "^9.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.9",
+    "@babel/plugin-transform-runtime": "^7.24.7",
+    "@babel/preset-env": "^7.24.8",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.14.12",
+    "rollup": "^4.19.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5",
+    "vitest": "^2.0.4"
+  },
+  "author": "mivui",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "eslint",
+    "prettier",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mivui/vue-eslint-standard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mivui/vue-eslint-standard/issues"
+  },
+  "homepage": "https://github.com/mivui/vue-eslint-standard#readme"
+}
