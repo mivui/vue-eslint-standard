@@ -16,10 +16,9 @@ npm i vue-eslint-standard -D
 ### eslint.config.js
 
 ```js
-import tseslint from 'typescript-eslint';
-import vueEslint from 'vue-eslint-standard';
+import { defineConfig } from 'vue-eslint-standard';
 
-export default tseslint.config(...vueEslint);
+export default defineConfig();
 
 ```
 

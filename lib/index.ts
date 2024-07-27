@@ -6,7 +6,7 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import vitest from 'eslint-plugin-vitest';
 import pluginVue from 'eslint-plugin-vue';
 import tseslint from 'typescript-eslint';
-import { eslintRules, typescriptRules } from 'typescript-eslint-standard';
+import { tseslintRules } from 'typescript-eslint-standard';
 import parserVue from 'vue-eslint-parser';
 
 const vueRules: TSESLint.FlatConfig.Rules = {
@@ -30,81 +30,88 @@ const vueRules: TSESLint.FlatConfig.Rules = {
   'vue/singleline-html-element-content-newline': 'off',
 };
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.strictTypeChecked,
-  prettierConfig,
-  prettierRecommended,
-  ...pluginVue.configs['flat/recommended'],
-  {
-    languageOptions: {
-      globals: {
-        NodeJS: false,
-        ElLoading: false,
-        ElMessage: false,
-        ElMessageBox: false,
-        ElNotification: false,
-      },
-      parser: parserVue,
-      parserOptions: {
-        parser: tseslint.parser,
-        project: true,
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true,
+export function defineConfig(options?: {
+  extends?: TSESLint.FlatConfig.Config[];
+  config?: TSESLint.FlatConfig.Config;
+}): TSESLint.FlatConfig.ConfigArray {
+  const { extends: inherit, config } = options ?? {};
+  const { files, ignores, languageOptions, plugins, rules } = config ?? {};
+  const inherits = inherit ?? [];
+  return tseslint.config(
+    eslint.configs.recommended,
+    ...tseslint.configs.recommendedTypeChecked,
+    ...tseslint.configs.strictTypeChecked,
+    prettierConfig,
+    prettierRecommended,
+    ...pluginVue.configs['flat/recommended'],
+    ...inherits,
+    {
+      name: 'vue-eslint-standard',
+      files: files ?? ['**/*.{j,t}s', '**/*.{j,t}sx', '**/*.vue'],
+      languageOptions: languageOptions ?? {
+        globals: {
+          NodeJS: false,
+          ElLoading: false,
+          ElMessage: false,
+          ElMessageBox: false,
+          ElNotification: false,
         },
-        extraFileExtensions: ['.vue'],
+        parser: parserVue,
+        parserOptions: {
+          parser: tseslint.parser,
+          project: true,
+          ecmaVersion: 'latest',
+          sourceType: 'module',
+          ecmaFeatures: {
+            jsx: true,
+          },
+          extraFileExtensions: ['.vue'],
+        },
+      },
+      plugins: {
+        'simple-import-sort': simpleImportSort,
+        ...plugins,
+      },
+      rules: {
+        ...tseslintRules,
+        ...vueRules,
+        ...rules,
+      },
+      ignores: ignores ?? [
+        'node_modules',
+        'dist',
+        'build',
+        'package.json',
+        '**/*.md',
+        ' **/*.svg',
+        '**/*.ejs',
+        '**/*.html',
+      ],
+    },
+    {
+      name: 'vitest-eslint-standard',
+      files: ['**/*.{test,spec}.{j,t}s', '**/*.{test,spec}.{j,t}sx'],
+      plugins: {
+        vitest,
+      },
+      rules: {
+        ...vitest.configs.recommended.rules,
+        ...rules,
+      },
+      settings: {
+        vitest: {
+          typecheck: true,
+        },
+      },
+      languageOptions: {
+        globals: {
+          ...vitest.environments.env.globals,
+        },
       },
     },
-    plugins: {
-      'simple-import-sort': simpleImportSort,
+    {
+      files: ['**/*.js', '**/*.jsx'],
+      ...tseslint.configs.disableTypeChecked,
     },
-    rules: {
-      ...eslintRules,
-      ...typescriptRules,
-      ...vueRules,
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-    },
-    ignores: [
-      'node_modules',
-      'dist',
-      'build',
-      'package.json',
-      '**/*.md',
-      ' **/*.svg',
-      '**/*.ejs',
-      '**/*.html',
-    ],
-  },
-  {
-    files: ['**/*.{test,spec}.{j,t}s'],
-    plugins: {
-      vitest,
-      'simple-import-sort': simpleImportSort,
-    },
-    rules: {
-      ...eslintRules,
-      ...typescriptRules,
-      ...vitest.configs.recommended.rules,
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-    },
-    settings: {
-      vitest: {
-        typecheck: true,
-      },
-    },
-    languageOptions: {
-      globals: {
-        ...vitest.environments.env.globals,
-      },
-    },
-  },
-  {
-    files: ['**/*.js'],
-    ...tseslint.configs.disableTypeChecked,
-  },
-);
+  );
+}
