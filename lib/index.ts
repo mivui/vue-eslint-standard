@@ -60,7 +60,6 @@ export function defineConfig(options?: {
         parserOptions: {
           parser: tseslint.parser,
           project: true,
-          tsconfigRootDir: import.meta.dirname,
           ecmaVersion: 'latest',
           sourceType: 'module',
           ecmaFeatures: {
