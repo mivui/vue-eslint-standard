@@ -36,3 +36,20 @@ export default {
 };
 
 ```
+
+### custom configuration
+
+```js
+import { defineConfig } from 'typescript-eslint-standard';
+import tseslint from 'typescript-eslint';
+
+export default defineConfig({
+  extends: [...tseslint.configs.recommended, ...tseslint.configs.strict],
+  config: {
+    rules: {
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-empty-interface': 'off',
+    },
+  },
+});
+```
