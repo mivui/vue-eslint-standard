@@ -31,15 +31,21 @@ const vueRules: TSESLint.FlatConfig.Rules = {
 };
 
 export interface Config extends Omit<TSESLint.FlatConfig.Config, 'linterOptions' | 'name' | 'processor'> {
+  extends?: TSESLint.FlatConfig.Config[];
   globals?: TSESLint.SharedConfig.GlobalsConfig;
 }
 
-export function defineConfig(options?: {
-  extends?: TSESLint.FlatConfig.Config[];
-  config?: Config;
-}): TSESLint.FlatConfig.ConfigArray {
-  const { extends: inherit, config } = options ?? {};
-  const { files, ignores, languageOptions, plugins, rules, globals, settings } = config ?? {};
+export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
+  const {
+    extends: inherit,
+    files,
+    ignores,
+    languageOptions,
+    plugins,
+    rules,
+    globals,
+    settings,
+  } = config ?? {};
   const inherits = inherit ?? [];
   return tseslint.config(
     eslint.configs.recommended,
