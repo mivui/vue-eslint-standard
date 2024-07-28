@@ -30,12 +30,16 @@ const vueRules: TSESLint.FlatConfig.Rules = {
   'vue/singleline-html-element-content-newline': 'off',
 };
 
+export interface Config extends Omit<TSESLint.FlatConfig.Config, 'linterOptions' | 'name' | 'processor'> {
+  globals?: TSESLint.SharedConfig.GlobalsConfig;
+}
+
 export function defineConfig(options?: {
   extends?: TSESLint.FlatConfig.Config[];
-  config?: TSESLint.FlatConfig.Config;
+  config?: Config;
 }): TSESLint.FlatConfig.ConfigArray {
   const { extends: inherit, config } = options ?? {};
-  const { files, ignores, languageOptions, plugins, rules } = config ?? {};
+  const { files, ignores, languageOptions, plugins, rules, globals, settings } = config ?? {};
   const inherits = inherit ?? [];
   return tseslint.config(
     eslint.configs.recommended,
@@ -49,13 +53,7 @@ export function defineConfig(options?: {
       name: 'vue-eslint-standard',
       files: files ?? ['**/*.{j,t}s', '**/*.{j,t}sx', '**/*.vue'],
       languageOptions: languageOptions ?? {
-        globals: {
-          NodeJS: false,
-          ElLoading: false,
-          ElMessage: false,
-          ElMessageBox: false,
-          ElNotification: false,
-        },
+        globals: globals ?? {},
         parser: parserVue,
         parserOptions: {
           parser: tseslint.parser,
@@ -87,6 +85,7 @@ export function defineConfig(options?: {
         '**/*.ejs',
         '**/*.html',
       ],
+      settings: settings ?? {},
     },
     {
       name: 'vitest-eslint-standard',
