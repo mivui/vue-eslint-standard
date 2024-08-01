@@ -45,7 +45,7 @@ export default defineConfig({
   extends: [...tseslint.configs.recommended, ...tseslint.configs.strict],
   rules: {
     '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/no-empty-object-type': 'off',
   },
 });
 ```
