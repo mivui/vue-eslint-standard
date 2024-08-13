@@ -30,7 +30,8 @@ const vueRules: TSESLint.FlatConfig.Rules = {
   'vue/singleline-html-element-content-newline': 'off',
 };
 
-export interface Config extends Omit<TSESLint.FlatConfig.Config, 'linterOptions' | 'name' | 'processor'> {
+export interface Config
+  extends Omit<TSESLint.FlatConfig.Config, 'linterOptions' | 'name' | 'processor'> {
   extends?: TSESLint.FlatConfig.Config[];
   globals?: TSESLint.SharedConfig.GlobalsConfig;
 }

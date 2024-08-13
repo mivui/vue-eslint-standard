@@ -1,4 +1,6 @@
-**/*.md
+**/.git
+**/.svn
+**/.hg
+**/node_modules
 **/*.svg
-**/*.ejs
 **/*.html

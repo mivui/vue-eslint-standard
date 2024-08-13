@@ -1,6 +1,6 @@
 {
   "name": "vue-eslint-standard",
-  "version": "9.0.13",
+  "version": "9.1.0",
   "description": "quickly start eslint in vue",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "eslint-plugin-vue": "^9.27.0",
-    "typescript-eslint-standard": "^9.0.16"
+    "typescript-eslint-standard": "^9.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
@@ -33,12 +33,11 @@
     "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.14.13",
-    "rollup": "^4.19.2",
+    "@types/node": "^22.2.0",
+    "rollup": "^4.20.0",
     "rollup-plugin-dts": "^6.1.1",
     "tslib": "^2.6.3",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
     "vitest": "^2.0.5"
   },
   "author": "mivui",
