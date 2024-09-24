@@ -1,9 +1,9 @@
 import eslint from '@eslint/js';
 import { type TSESLint } from '@typescript-eslint/utils';
+import vitest from '@vitest/eslint-plugin';
 import prettierConfig from 'eslint-config-prettier';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
-import vitest from 'eslint-plugin-vitest';
 import pluginVue from 'eslint-plugin-vue';
 import tseslint from 'typescript-eslint';
 import { tseslintRules } from 'typescript-eslint-standard';
