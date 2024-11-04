@@ -1,6 +1,6 @@
 {
   "name": "vue-eslint-standard",
-  "version": "9.8.0",
+  "version": "9.9.0",
   "description": "quickly start eslint in vue",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "eslint-plugin-vue": "^9.30.0",
-    "typescript-eslint-standard": "^9.19.0"
+    "typescript-eslint-standard": "^9.20.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.1",
