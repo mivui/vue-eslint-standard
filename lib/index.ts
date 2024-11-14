@@ -58,7 +58,7 @@ export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
     ...inherits,
     {
       name: 'vue-eslint-standard',
-      files: files ?? ['**/*.{j,t}s', '**/*.m{j,t}s', '**/*.{j,t}sx'],
+      files: files ?? ['**/*.{j,t}s', '**/*.m{j,t}s', '**/*.{j,t}sx', '**/*.vue'],
       languageOptions: languageOptions ?? {
         globals: globals ?? {},
         parser: parserVue,
