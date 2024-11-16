@@ -116,7 +116,7 @@ export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
       },
     },
     {
-      files: ['**/*.js', '**/*.jsx'],
+      files: ['**/*.js', '**/*.mjs', '**/*.jsx'],
       ...tseslint.configs.disableTypeChecked,
     },
   );
