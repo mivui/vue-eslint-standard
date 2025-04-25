@@ -5,6 +5,7 @@ import prettierConfig from 'eslint-config-prettier';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import pluginVue from 'eslint-plugin-vue';
+import Globals from 'globals';
 import tseslint from 'typescript-eslint';
 import { tseslintRules } from 'typescript-eslint-standard';
 import parserVue from 'vue-eslint-parser';
@@ -27,6 +28,7 @@ const vueRules: TSESLint.FlatConfig.Rules = {
   'vue/multi-word-component-names': 'off',
   'vue/object-curly-newline': 'error',
   'vue/require-default-prop': 'off',
+  'vue/require-prop-types': 'off',
   'vue/singleline-html-element-content-newline': 'off',
 };
 
@@ -60,7 +62,7 @@ export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
       name: 'vue-eslint-standard',
       files: files ?? ['**/*.{j,t}s', '**/*.m{j,t}s', '**/*.{j,t}sx', '**/*.vue'],
       languageOptions: languageOptions ?? {
-        globals: globals ?? {},
+        globals: { ...Globals.browser, ...globals },
         parser: parserVue,
         parserOptions: {
           parser: tseslint.parser,
