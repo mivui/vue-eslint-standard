@@ -1,16 +1,18 @@
+import { type ConfigObject, type RulesConfig } from '@eslint/core';
 import eslint from '@eslint/js';
 import { type TSESLint } from '@typescript-eslint/utils';
 import vitest from '@vitest/eslint-plugin';
+import { defineConfig as eslintConfig } from 'eslint/config';
 import prettierConfig from 'eslint-config-prettier';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import pluginVue from 'eslint-plugin-vue';
 import Globals from 'globals';
 import tseslint from 'typescript-eslint';
-import { tseslintRules } from 'typescript-eslint-standard';
+import { tslintRules } from 'typescript-eslint-standard';
 import parserVue from 'vue-eslint-parser';
 
-const vueRules: TSESLint.FlatConfig.Rules = {
+const vueRules: RulesConfig = {
   'vue/html-closing-bracket-newline': 'off',
   'vue/html-self-closing': [
     'error',
@@ -32,15 +34,14 @@ const vueRules: TSESLint.FlatConfig.Rules = {
   'vue/singleline-html-element-content-newline': 'off',
 };
 
-export interface Config
-  extends Omit<TSESLint.FlatConfig.Config, 'linterOptions' | 'name' | 'processor'> {
-  extends?: TSESLint.FlatConfig.Config[];
+export interface Config extends Omit<ConfigObject, 'linterOptions' | 'name' | 'processor'> {
+  extends?: ConfigObject[];
   globals?: TSESLint.SharedConfig.GlobalsConfig;
 }
 
 export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
   const {
-    extends: inherit,
+    extends: extendConfigs,
     files,
     ignores,
     languageOptions,
@@ -49,15 +50,15 @@ export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
     globals,
     settings,
   } = config ?? {};
-  const inherits = inherit ?? [];
-  return tseslint.config(
+  const configs = extendConfigs ?? [];
+  return eslintConfig(
     eslint.configs.recommended,
     ...tseslint.configs.recommendedTypeChecked,
     ...tseslint.configs.strictTypeChecked,
     prettierConfig,
     prettierRecommended,
     ...pluginVue.configs['flat/recommended'],
-    ...inherits,
+    ...configs,
     {
       name: 'vue-eslint-standard',
       files: files ?? ['**/*.{j,t}s', '**/*.m{j,t}s', '**/*.{j,t}sx', '**/*.vue'],
@@ -80,7 +81,7 @@ export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
         ...plugins,
       },
       rules: {
-        ...tseslintRules,
+        ...tslintRules,
         ...vueRules,
         ...rules,
       },
