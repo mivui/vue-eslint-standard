@@ -39,7 +39,7 @@ export interface Config extends Omit<ConfigObject, 'linterOptions' | 'name' | 'p
   globals?: TSESLint.SharedConfig.GlobalsConfig;
 }
 
-export function defineConfig(config?: Config): TSESLint.FlatConfig.ConfigArray {
+export function defineConfig(config?: Config) {
   const {
     extends: extendConfigs,
     files,
